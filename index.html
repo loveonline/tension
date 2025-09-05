@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY SUPER TOOLS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 200, 200, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 200, 200, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: pulsate 2s infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #0ff;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .tool-card {
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 200, 200, 0.3);
+            border: 1px solid rgba(0, 200, 200, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 200, 200, 0.5);
+        }
+        
+        .tool-icon {
+            font-size: 2.5rem;
+            color: #0ff;
+            margin-bottom: 15px;
+        }
+        
+        .tool-card h2 {
+            color: #0ff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .tool-card p {
+            color: #ccc;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .btn {
+            background: transparent;
+            color: #0ff;
+            border: 2px solid #0ff;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:hover {
+            color: #000;
+            transform: scale(1.05);
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #0ff;
+            transition: all 0.4s;
+            z-index: -1;
+        }
+        
+        .btn:hover:before {
+            left: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #0ff;
+            border-top: 1px solid rgba(0, 200, 200, 0.3);
+            margin-top: 30px;
+        }
+        
+        /* Animation */
+        @keyframes pulsate {
+            0% {
+                text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+            }
+            100% {
+                text-shadow: 0 0 15px #0ff, 0 0 25px #0ff, 0 0 40px #0ff, 0 0 60px #0ff;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tool-card {
+                min-height: 220px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MY SUPER TOOLS</h1>
+            <p class="subtitle">All-in-one web tools for your everyday needs. Fast, efficient, and completely free to use!</p>
+        </header>
+        
+        <main>
+            <div class="tools-grid">
+                <!-- Tool 1 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h2>Image Converter</h2>
+                        <p>Convert between JPG, PNG, WEBP, and other image formats with just a few clicks.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Image Converter')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 2 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </div>
+                        <h2>Image Compressor</h2>
+                        <p>Reduce image file sizes without noticeable quality loss. Perfect for web optimization.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 3 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-crop-alt"></i>
+                        </div>
+                        <h2>Image Crop</h2>
+                        <p>Easily crop your images to the desired size and aspect ratio with our intuitive tool.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Image Crop')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 4 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h2>Video Converter</h2>
+                        <p>Convert videos between MP4, AVI, MOV, and other popular formats quickly.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Video Converter')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 5 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <h2>Age Calculator</h2>
+                        <p>Calculate exact age, time until next birthday, or time between two dates.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Age Calculator')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 6 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h2>EMI Calculator</h2>
+                        <p>Calculate your Equated Monthly Installments for loans with detailed breakdown.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('EMI Calculator')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 7 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h2>Average Calculator</h2>
+                        <p>Calculate arithmetic mean, median, mode, and other statistical averages easily.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Average Calculator')">Use Tool</button>
+                </div>
+                
+                <!-- Tool 8 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h2>SIP Calculator</h2>
+                        <p>Plan your investments with our Systematic Investment Plan calculator.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('SIP Calculator')">Use Tool</button>
+                </div>
+
+                <!-- Tool 9 -->
+                <div class="tool-card">
+                    <div>
+                        <div class="tool-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h2>Audio Trim</h2>
+                        <p>Trim your audio files to the perfect length. Cut, edit, and save your audio clips.</p>
+                    </div>
+                    <button class="btn" onclick="redirectToTool('Audio Trim')">Use Tool</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>MY SUPER TOOLS &copy; 2023 | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        function redirectToTool(toolName) {
+            alert(`Redirecting to ${toolName}`);
+            // In a real application, you would redirect to the actual tool page:
+            // window.location.href = `/${toolName.toLowerCase().replace(' ', '-')}.html`;
+        }
+    </script>
+</body>
+</html>
