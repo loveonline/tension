@@ -111,6 +111,8 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            text-decoration: none;
+            display: inline-block;
         }
         
         .btn:hover {
@@ -198,7 +200,7 @@
                         <h2>Image Converter</h2>
                         <p>Convert between JPG, PNG, WEBP, and other image formats with just a few clicks.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Image Converter')">Use Tool</button>
+                    <a href="image-converter.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 2 -->
@@ -210,7 +212,7 @@
                         <h2>Image Compressor</h2>
                         <p>Reduce image file sizes without noticeable quality loss. Perfect for web optimization.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Image Compressor')">Use Tool</button>
+                    <a href="image-compressor.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 3 -->
@@ -222,7 +224,7 @@
                         <h2>Image Crop</h2>
                         <p>Easily crop your images to the desired size and aspect ratio with our intuitive tool.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Image Crop')">Use Tool</button>
+                    <a href="image-crop.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 4 -->
@@ -234,7 +236,7 @@
                         <h2>Video Converter</h2>
                         <p>Convert videos between MP4, AVI, MOV, and other popular formats quickly.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Video Converter')">Use Tool</button>
+                    <a href="video-converter.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 5 -->
@@ -246,7 +248,7 @@
                         <h2>Age Calculator</h2>
                         <p>Calculate exact age, time until next birthday, or time between two dates.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Age Calculator')">Use Tool</button>
+                    <a href="age-calculator.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 6 -->
@@ -258,7 +260,7 @@
                         <h2>EMI Calculator</h2>
                         <p>Calculate your Equated Monthly Installments for loans with detailed breakdown.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('EMI Calculator')">Use Tool</button>
+                    <a href="emi-calculator.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 7 -->
@@ -270,7 +272,7 @@
                         <h2>Average Calculator</h2>
                         <p>Calculate arithmetic mean, median, mode, and other statistical averages easily.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Average Calculator')">Use Tool</button>
+                    <a href="average-calculator.html" class="btn">Use Tool</a>
                 </div>
                 
                 <!-- Tool 8 -->
@@ -282,7 +284,7 @@
                         <h2>SIP Calculator</h2>
                         <p>Plan your investments with our Systematic Investment Plan calculator.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('SIP Calculator')">Use Tool</button>
+                    <a href="sip-calculator.html" class="btn">Use Tool</a>
                 </div>
 
                 <!-- Tool 9 -->
@@ -294,7 +296,7 @@
                         <h2>Audio Trim</h2>
                         <p>Trim your audio files to the perfect length. Cut, edit, and save your audio clips.</p>
                     </div>
-                    <button class="btn" onclick="redirectToTool('Audio Trim')">Use Tool</button>
+                    <a href="audio-trim.html" class="btn">Use Tool</a>
                 </div>
             </div>
         </main>
@@ -305,11 +307,17 @@
     </div>
 
     <script>
-        function redirectToTool(toolName) {
-            alert(`Redirecting to ${toolName}`);
-            // In a real application, you would redirect to the actual tool page:
-            // window.location.href = `/${toolName.toLowerCase().replace(' ', '-')}.html`;
-        }
+        // Function to show alert before redirecting (for demonstration)
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const toolName = this.closest('.tool-card').querySelector('h2').textContent;
+                alert(`Redirecting to ${toolName}`);
+                
+                // In a real application, you would redirect to the actual page:
+                // window.location.href = this.getAttribute('href');
+            });
+        });
     </script>
 </body>
 </html>
