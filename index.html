@@ -191,7 +191,7 @@
         
         <main>
             <div class="tools-grid">
-                <!-- Tool 1 -->
+                <!-- Tool 1: Image Converter -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -203,7 +203,7 @@
                     <a href="image-converter.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 2 -->
+                <!-- Tool 2: Image Compressor -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -215,7 +215,7 @@
                     <a href="image-compressor.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 3 -->
+                <!-- Tool 3: Image Crop -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -227,7 +227,7 @@
                     <a href="image-crop.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 4 -->
+                <!-- Tool 4: Video Converter -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -239,7 +239,7 @@
                     <a href="video-converter.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 5 -->
+                <!-- Tool 5: Age Calculator -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -251,7 +251,7 @@
                     <a href="age-calculator.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 6 -->
+                <!-- Tool 6: EMI Calculator -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -263,7 +263,7 @@
                     <a href="emi-calculator.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 7 -->
+                <!-- Tool 7: Average Calculator -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -275,7 +275,7 @@
                     <a href="average-calculator.html" class="btn">Use Tool</a>
                 </div>
                 
-                <!-- Tool 8 -->
+                <!-- Tool 8: SIP Calculator -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -287,7 +287,7 @@
                     <a href="sip-calculator.html" class="btn">Use Tool</a>
                 </div>
 
-                <!-- Tool 9 -->
+                <!-- Tool 9: Audio Trim -->
                 <div class="tool-card">
                     <div>
                         <div class="tool-icon">
@@ -307,15 +307,12 @@
     </div>
 
     <script>
-        // Function to show alert before redirecting (for demonstration)
+        // Simple navigation handling
         document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function(e) {
-                e.preventDefault();
                 const toolName = this.closest('.tool-card').querySelector('h2').textContent;
-                alert(`Redirecting to ${toolName}`);
-                
-                // In a real application, you would redirect to the actual page:
-                // window.location.href = this.getAttribute('href');
+                console.log(`Redirecting to ${toolName}`);
+                // Allow default navigation to proceed
             });
         });
     </script>
