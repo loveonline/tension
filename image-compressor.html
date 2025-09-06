@@ -664,7 +664,9 @@
     <div id="notification" class="notification"></div>
     
     <script>
+        // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
             const uploadArea = document.getElementById('upload-area');
             const fileInput = document.getElementById('file-input');
             const qualitySlider = document.getElementById('quality-slider');
@@ -681,6 +683,7 @@
             const loading = document.getElementById('loading');
             const notification = document.getElementById('notification');
             
+            // Variables to store file and compressed data
             let originalFile = null;
             let compressedBlob = null;
             
@@ -690,32 +693,32 @@
             });
             
             // Upload area click event
-            uploadArea.addEventListener('click', () => {
+            uploadArea.addEventListener('click', function() {
                 fileInput.click();
             });
             
             // File input change event
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
                     handleFile(e.target.files[0]);
                 }
             });
             
             // Drag and drop events
-            uploadArea.addEventListener('dragover', (e) => {
+            uploadArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
             });
             
-            uploadArea.addEventListener('dragleave', () => {
+            uploadArea.addEventListener('dragleave', function() {
                 uploadArea.classList.remove('dragover');
             });
             
-            uploadArea.addEventListener('drop', (e) => {
+            uploadArea.addEventListener('drop', function(e) {
                 e.preventDefault();
                 uploadArea.classList.remove('dragover');
                 
-                if (e.dataTransfer.files.length) {
+                if (e.dataTransfer.files.length > 0) {
                     handleFile(e.dataTransfer.files[0]);
                 }
             });
@@ -760,17 +763,17 @@
                 
                 // Display preview of original image
                 const reader = new FileReader();
-                reader.onload = (e) => {
+                reader.onload = function(e) {
                     originalPreview.src = e.target.result;
                     previewContainer.classList.add('active');
                     
                     // Display file info
-                    originalSize.textContent = `Size: ${formatFileSize(file.size)}`;
+                    originalSize.textContent = 'Size: ' + formatFileSize(file.size);
                     
                     // Get dimensions
                     const img = new Image();
                     img.onload = function() {
-                        originalDimensions.textContent = `Dimensions: ${this.width} × ${this.height}`;
+                        originalDimensions.textContent = 'Dimensions: ' + this.width + ' × ' + this.height;
                     };
                     img.src = e.target.result;
                 };
@@ -803,7 +806,7 @@
                     ctx.drawImage(img, 0, 0);
                     
                     // Convert canvas to blob with specified quality
-                    canvas.toBlob((blob) => {
+                    canvas.toBlob(function(blob) {
                         if (!blob) {
                             showNotification('Compression failed. Please try again.', 'error');
                             loading.classList.remove('active');
@@ -819,8 +822,8 @@
                         compressedPreview.src = url;
                         
                         // Display file info
-                        compressedSize.textContent = `Size: ${formatFileSize(blob.size)}`;
-                        compressedDimensions.textContent = `Dimensions: ${img.width} × ${img.height}`;
+                        compressedSize.textContent = 'Size: ' + formatFileSize(blob.size);
+                        compressedDimensions.textContent = 'Dimensions: ' + img.width + ' × ' + img.height;
                         
                         // Calculate and display compression ratio
                         const originalSizeInBytes = originalFile.size;
@@ -831,7 +834,7 @@
                         loading.classList.remove('active');
                         compressBtn.disabled = false;
                         
-                        showNotification(`Image compressed successfully! Reduced by ${compressionRatio}%`, 'success');
+                        showNotification('Image compressed successfully! Reduced by ' + compressionRatio + '%', 'success');
                     }, 'image/jpeg', quality);
                 };
                 
@@ -861,7 +864,7 @@
                 notification.className = 'notification ' + type;
                 notification.classList.add('show');
                 
-                setTimeout(() => {
+                setTimeout(function() {
                     notification.classList.remove('show');
                 }, 3000);
             }
