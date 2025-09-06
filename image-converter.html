@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Image Converter | Multi-Color Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        /* Navigation Header */
+        .nav-header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 200, 200, 0.3);
+            border: 1px solid rgba(0, 200, 200, 0.2);
+        }
+        
+        .nav-brand a {
+            color: #0ff;
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px #0ff;
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-menu a {
+            color: #0ff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .nav-menu a:hover {
+            background: rgba(0, 200, 200, 0.2);
+            box-shadow: 0 0 10px rgba(0, 200, 200, 0.4);
+            border: 1px solid #0ff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 3s ease infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 25px 0 15px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+        
+        .converter-container {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .converter-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff, #ff00ff);
+            border-radius: 17px;
+            background-size: 400% 400%;
+            animation: borderGlow 3s ease infinite;
+            z-index: -1;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .upload-area {
+            border: 2px dashed #00ffff;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .upload-area:hover {
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .upload-area.dragover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #00ffff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #00ffff;
+        }
+        
+        .upload-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .format-selection {
+            margin-bottom: 30px;
+        }
+        
+        .format-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .format-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .format-option {
+            position: relative;
+        }
+        
+        .format-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .format-option label {
+            display: block;
+            padding: 12px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            color: #00ffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .format-option input[type="radio"]:checked + label {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .format-option label:hover {
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .convert-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5),
+                        0 0 25px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            margin: 25px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .convert-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
+            background-size: 400% 400%;
+            animation: buttonGlow 3s ease infinite;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        @keyframes buttonGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .convert-btn:hover::before {
+            opacity: 1;
+        }
+        
+        .convert-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8),
+                        0 0 35px rgba(0, 255, 255, 0.8);
+        }
+        
+        .convert-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .preview-container {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .preview-container.active {
+            display: block;
+        }
+        
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .preview-header h2 {
+            margin-bottom: 10px;
+        }
+        
+        .preview-images {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .preview-box {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .preview-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .preview-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .download-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5),
+                        0 0 25px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8),
+                        0 0 35px rgba(0, 255, 255, 0.8);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            border-left: 5px solid #00ff00;
+        }
+        
+        .notification.error {
+            border-left: 5px solid #ff0000;
+        }
+        
+        .notification.info {
+            border-left: 5px solid #00ffff;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ffff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 15px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+        
+        .article {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .article h2 {
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .article p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .preview-images {
+                flex-direction: column;
+            }
+            
+            .format-options {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <div class="nav-header">
+        <div class="nav-brand">
+            <a href="index.html">MY SUPER TOOLS</a>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="image-converter.html" style="background: rgba(0, 200, 200, 0.2); box-shadow: 0 0 10px rgba(0, 200, 200, 0.4); border: 1px solid #0ff;">Image Converter</a>
+            <a href="age-calculator.html">Age Calculator</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Neon Image Converter</h1>
+            <p>Convert your images to different formats with our easy-to-use tool</p>
+        </header>
+        
+        <section class="converter-container">
+            <div class="upload-area" id="upload-area">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="upload-text">Drag & Drop your image here or click to browse</div>
+                <input type="file" id="file-input" class="file-input" accept="image/*">
+            </div>
+            
+            <div class="format-selection">
+                <label class="format-label">Select Output Format:</label>
+                <div class="format-options">
+                    <div class="format-option">
+                        <input type="radio" id="png" name="format" value="png" checked>
+                        <label for="png">PNG</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="jpg" name="format" value="jpg">
+                        <label for="jpg">JPG</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="jpeg" name="format" value="jpeg">
+                        <label for="jpeg">JPEG</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="webp" name="format" value="webp">
+                        <label for="webp">WEBP</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="bmp" name="format" value="bmp">
+                        <label for="bmp">BMP</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="gif" name="format" value="gif">
+                        <label for="gif">GIF</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="tiff" name="format" value="tiff">
+                        <label for="tiff">TIFF</label>
+                    </div>
+                    <div class="format-option">
+                        <input type="radio" id="pdf" name="format" value="pdf">
+                        <label for="pdf">PDF</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="convert-btn" class="convert-btn" disabled>Convert Image</button>
+            
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <div class="loading-text">Processing image...</div>
+            </div>
+            
+            <div id="preview-container" class="preview-container">
+                <div class="preview-header">
+                    <h2>Image Conversion Results</h2>
+                </div>
+                <div class="preview-images">
+                    <div class="preview-box">
+                        <div class="preview-title">Original Image</div>
+                        <img id="original-preview" class="preview-image" alt="Original">
+                    </div>
+                    <div class="preview-box">
+                        <div class="preview-title">Converted Image</div>
+                        <img id="converted-preview" class="preview-image" alt="Converted">
+                    </div>
+                </div>
+                <div class="download-container">
+                    <button id="download-btn" class="download-btn">
+                        <i class="fas fa-download"></i> Download Converted Image
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <section class="article">
+            <h2>The Ultimate Guide to Image Formats: Choosing the Right Format for Your Needs</h2>
+            <p>Images are everywhere in our digital world, but not all image formats are created equal. Understanding the differences between image formats can help you choose the right one for your specific needs, whether it's for web design, printing, or archiving.</p>
+            
+            <h2>Common Image Formats Explained</h2>
+            <p>Each image format has its own strengths and weaknesses. Here's a breakdown of the most common formats and when to use them:</p>
+            
+            <p><strong>PNG (Portable Network Graphics)</strong>: PNG is a lossless format that supports transparency and is ideal for graphics with sharp edges, text, or logos. It produces high-quality images but results in larger file sizes compared to JPEG.</p>
+            
+            <p><strong>JPG/JPEG (Joint Photographic Experts Group)</strong>: JPEG is the most popular format for photographs. It uses lossy compression, which means it sacrifices some image quality to reduce file size. This makes it perfect for web images where smaller file sizes are important.</p>
+            
+            <p><strong>WEBP (Web Picture)</strong>: Developed by Google, WEBP offers both lossy and lossless compression. It provides superior compression compared to JPEG and PNG while maintaining similar image quality. It's becoming increasingly popular for web use.</p>
+            
+            <p><strong>BMP (Bitmap)</strong>: BMP is an uncompressed format that stores images pixel by pixel. It produces high-quality images but results in very large file sizes. It's mainly used in Windows environments and for simple graphics.</p>
+            
+            <p><strong>GIF (Graphics Interchange Format)</strong>: GIF supports animation and transparency but is limited to 256 colors. It's best suited for simple animations, icons, and graphics with limited color palettes.</p>
+            
+            <p><strong>TIFF (Tagged Image File Format)</strong>: TIFF is a flexible format that supports lossless compression and is often used in professional photography and publishing. It can store multiple images in a single file and supports various color spaces.</p>
+            
+            <p><strong>PDF (Portable Document Format)</strong>: While not strictly an image format, PDF can contain images and is ideal for documents that need to be shared and printed consistently across different devices and platforms.</p>
+            
+            <h2>When to Use Each Format</h2>
+            <p>Choosing the right format depends on your specific needs:</p>
+            
+            <p>• <strong>For Web Graphics</strong>: Use PNG for images with transparency or sharp edges, and JPEG for photographs. WEBP is an excellent alternative if browser support is not a concern.</p>
+            
+            <p>• <strong>For Print</strong>: TIFF is the preferred format for high-quality printing due to its lossless compression and support for various color spaces.</p>
+            
+            <p>• <strong>For Social Media</strong>: JPEG is generally the best choice due to its small file size and wide compatibility. PNG is suitable for graphics with transparency.</p>
+            
+            <p>• <strong>For Email</strong>: JPEG or WEBP are ideal due to their small file sizes, which help with faster loading times.</p>
+            
+            <p>• <strong>For Archiving</strong>: TIFF or PNG are excellent choices for long-term storage as they use lossless compression, preserving image quality.</p>
+            
+            <h2>Understanding Compression</h2>
+            <p>Image compression reduces file size, which is essential for faster loading times and efficient storage. There are two types of compression:</p>
+            
+            <p><strong>Lossy Compression</strong>: This method reduces file size by permanently removing some image data. Formats like JPEG and WEBP (in lossy mode) use this method. While it significantly reduces file size, it can result in a loss of image quality, especially at higher compression levels.</p>
+            
+            <p><strong>Lossless Compression</strong>: This method reduces file size without losing any image data. Formats like PNG, TIFF, and WEBP (in lossless mode) use this method. It preserves image quality but doesn't reduce file size as much as lossy compression.</p>
+            
+            <h2>Color Depth and Transparency</h2>
+            <p>Different formats support varying levels of color depth and transparency:</p>
+            
+            <p>• <strong>Color Depth</strong>: Refers to the number of colors an image can contain. Higher color depth results in more accurate color representation but larger file sizes. PNG supports up to 48-bit color, while JPEG supports 24-bit color.</p>
+            
+            <p>• <strong>Transparency</strong>: Allows parts of an image to be transparent. PNG and GIF support transparency, while JPEG does not. WEBP also supports transparency with an alpha channel.</p>
+            
+            <h2>Future of Image Formats</h2>
+            <p>As technology evolves, new image formats continue to emerge. Formats like AVIF (AV1 Image File Format) and HEIF (High Efficiency Image Format) offer even better compression and quality compared to existing formats. However, browser support for these newer formats is still limited.</p>
+            
+            <h2>Conclusion</h2>
+            <p>Understanding image formats is essential for anyone working with digital images. By choosing the right format for your specific needs, you can optimize image quality, file size, and compatibility. Our Neon Image Converter makes it easy to convert between different formats, ensuring your images are always in the best format for your intended use.</p>
+            
+            <p>Whether you're a web designer, photographer, or casual user, having the ability to convert images between formats is a valuable skill. With our tool, you can quickly and easily convert your images while maintaining the best possible quality for your needs.</p>
+        </section>
+        
+        <footer>
+            <p>© 2023 Neon Image Converter | A Multi-Tools Project</p>
+        </footer>
+    </div>
+    
+    <div id="notification" class="notification"></div>
+    
+    <!-- Include jsPDF library for PDF conversion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <script>
+        // Simple script to handle image conversion
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const convertBtn = document.getElementById('convert-btn');
+            const previewContainer = document.getElementById('preview-container');
+            const originalPreview = document.getElementById('original-preview');
+            const convertedPreview = document.getElementById('converted-preview');
+            const downloadBtn = document.getElementById('download-btn');
+            const loading = document.getElementById('loading');
+            const notification = document.getElementById('notification');
+            
+            // Variables to store file and converted data
+            let originalFile = null;
+            let convertedBlob = null;
+            
+            // Upload area click event
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // File input change event
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleFile(e.target.files[0]);
+                }
+            });
+            
+            // Drag and drop events
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // Convert button click event
+            convertBtn.addEventListener('click', convertImage);
+            
+            // Download button click event
+            downloadBtn.addEventListener('click', function() {
+                if (convertedBlob) {
+                    const format = document.querySelector('input[name="format"]:checked').value;
+                    const url = URL.createObjectURL(convertedBlob);
+                    
+                    // Create a temporary link element
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `converted-image.${format}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    // Clean up
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 100);
+                    
+                    showNotification('Download started', 'success');
+                } else {
+                    showNotification('No converted image available. Please convert an image first.', 'error');
+                }
+            });
+            
+            // Handle file selection
+            function handleFile(file) {
+                // Check if file is an image
+                if (!file.type.match('image.*')) {
+                    showNotification('Please select an image file', 'error');
+                    return;
+                }
+                
+                // Check file size (limit to 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    showNotification('File size exceeds 10MB limit', 'error');
+                    return;
+                }
+                
+                originalFile = file;
+                convertBtn.disabled = false;
+                
+                // Display preview of original image
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    originalPreview.src = e.target.result;
+                    previewContainer.classList.add('active');
+                };
+                reader.readAsDataURL(file);
+                
+                showNotification('Image uploaded successfully', 'success');
+            }
+            
+            // Convert image function
+            function convertImage() {
+                if (!originalFile) return;
+                
+                const format = document.querySelector('input[name="format"]:checked').value;
+                
+                // Show loading indicator
+                loading.classList.add('active');
+                convertBtn.disabled = true;
+                
+                // Simulate processing time
+                setTimeout(() => {
+                    if (format === 'pdf') {
+                        // For PDF, use jsPDF
+                        convertToPDF(originalPreview);
+                    } else {
+                        // For other formats, use canvas
+                        convertWithCanvas(format);
+                    }
+                }, 1500);
+            }
+            
+            // Convert with Canvas API
+            function convertWithCanvas(format) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = function() {
+                    // Set canvas dimensions to match image
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Draw image on canvas
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Determine MIME type based on format
+                    let mimeType;
+                    switch(format) {
+                        case 'png':
+                            mimeType = 'image/png';
+                            break;
+                        case 'jpg':
+                        case 'jpeg':
+                            mimeType = 'image/jpeg';
+                            break;
+                        case 'webp':
+                            mimeType = 'image/webp';
+                            break;
+                        case 'bmp':
+                            mimeType = 'image/bmp';
+                            break;
+                        case 'gif':
+                            mimeType = 'image/gif';
+                            break;
+                        case 'tiff':
+                            mimeType = 'image/tiff';
+                            break;
+                        default:
+                            mimeType = 'image/png';
+                    }
+                    
+                    // Convert canvas to blob
+                    canvas.toBlob((blob) => {
+                        if (!blob) {
+                            showNotification('Conversion failed. Please try again.', 'error');
+                            loading.classList.remove('active');
+                            convertBtn.disabled = false;
+                            return;
+                        }
+                        
+                        // Store the blob for download
+                        convertedBlob = blob;
+                        
+                        // Create URL for the blob and set as image source
+                        const url = URL.createObjectURL(blob);
+                        convertedPreview.src = url;
+                        
+                        // Hide loading indicator
+                        loading.classList.remove('active');
+                        convertBtn.disabled = false;
+                        
+                        showNotification('Image converted successfully', 'success');
+                    }, mimeType, format === 'png' ? 1 : 0.9);
+                };
+                
+                img.onerror = function() {
+                    showNotification('Failed to load image for conversion', 'error');
+                    loading.classList.remove('active');
+                    convertBtn.disabled = false;
+                };
+                
+                img.src = originalPreview.src;
+            }
+            
+            // Convert to PDF function
+            function convertToPDF(imgElement) {
+                try {
+                    // Check if jsPDF is available
+                    if (typeof window.jsPDF === 'undefined') {
+                        showNotification('PDF library not loaded. Please refresh the page.', 'error');
+                        loading.classList.remove('active');
+                        convertBtn.disabled = false;
+                        return;
+                    }
+                    
+                    // Create a new jsPDF instance
+                    const pdf = new window.jsPDF();
+                    
+                    // Get image dimensions
+                    const imgWidth = imgElement.naturalWidth;
+                    const imgHeight = imgElement.naturalHeight;
+                    
+                    // Calculate dimensions to fit the image in the PDF
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+                    const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                    const imgX = (pdfWidth - imgWidth * ratio) / 2;
+                    const imgY = 10;
+                    
+                    // Add image to PDF
+                    pdf.addImage(imgElement, 'JPEG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                    
+                    // Generate PDF blob
+                    const pdfBlob = pdf.output('blob');
+                    convertedBlob = pdfBlob;
+                    
+                    // Display converted image (show a PDF icon)
+                    convertedPreview.src = 'https://picsum.photos/seed/pdf-icon/200/200.jpg';
+                    
+                    // Hide loading indicator
+                    loading.classList.remove('active');
+                    convertBtn.disabled = false;
+                    
+                    showNotification('Image converted to PDF successfully', 'success');
+                } catch (error) {
+                    console.error('PDF conversion error:', error);
+                    showNotification('PDF conversion failed. Please try again.', 'error');
+                    loading.classList.remove('active');
+                    convertBtn.disabled = false;
+                }
+            }
+            
+            // Show notification function
+            function showNotification(message, type) {
+                notification.textContent = message;
+                notification.className = 'notification ' + type;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
