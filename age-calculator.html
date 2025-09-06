@@ -1,136 +1,802 @@
-<div class="tool-wrapper">
-  <div class="tool-container">
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Age Calculator - Emporio Technica</title>
-  <style>
-    /* Page Theme */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #141E30, #243B55); /* Emporio Technica vibe */
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* Full screen height */
-      color: #fff;
-    }
-
-    /* Container (Card) */
-    .calculator-container {
-      background: #1e293b;
-      color: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      text-align: center;
-      width: 100%;
-      max-width: 420px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .calculator-container h1 {
-      font-size: 26px;
-      margin-bottom: 20px;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: bold;
-      display: block;
-      margin: 12px 0 5px;
-    }
-
-    input[type="date"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 14px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      background: #0f172a;
-      color: #fff;
-      border: 1px solid #334155;
-    }
-
-    button {
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      border: none;
-      padding: 14px;
-      width: 100%;
-      color: white;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(0, 114, 255, 0.6);
-    }
-
-    #result {
-      margin-top: 20px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #e2e8f0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Age Calculator | Multi-Color Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 3s ease infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 25px 0 15px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+        
+        .calculator {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff, #ff00ff);
+            border-radius: 17px;
+            background-size: 400% 400%;
+            animation: borderGlow 3s ease infinite;
+            z-index: -1;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        
+        .input-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        input[type="date"] {
+            width: 100%;
+            padding: 15px 60px 15px 15px;
+            border-radius: 10px;
+            border: 2px solid #00ffff;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+        }
+        
+        input[type="date"]:focus {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8),
+                        0 0 25px rgba(0, 255, 255, 0.5);
+        }
+        
+        /* Neon date picker button */
+        .neon-date-button {
+            position: absolute;
+            top: 38px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5),
+                        0 0 15px rgba(0, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .neon-date-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.8),
+                        0 0 25px rgba(0, 255, 255, 0.8);
+        }
+        
+        .neon-date-button i {
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Hide the default calendar picker indicator */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 3;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5),
+                        0 0 25px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            margin: 25px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
+            background-size: 400% 400%;
+            animation: buttonGlow 3s ease infinite;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        @keyframes buttonGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        button:hover::before {
+            opacity: 1;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8),
+                        0 0 35px rgba(0, 255, 255, 0.8);
+        }
+        
+        .main-results {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .result-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .result-title {
+            color: #ff00ff;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+            transition: all 0.5s ease;
+        }
+        
+        .result-value.celebrate {
+            animation: numberPop 0.5s ease;
+        }
+        
+        @keyframes numberPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        .total-days {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .total-days-title {
+            color: #ff00ff;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .total-days-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+            transition: all 0.5s ease;
+        }
+        
+        .total-days-value.celebrate {
+            animation: numberPop 0.5s ease;
+        }
+        
+        .detailed-results {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+        }
+        
+        .detailed-result {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .detailed-result:last-child {
+            border-bottom: none;
+        }
+        
+        .detailed-result span:first-child {
+            color: #ff00ff;
+            text-shadow: 0 0 2px #ff00ff;
+        }
+        
+        .detailed-result span:last-child {
+            color: #00ffff;
+            text-shadow: 0 0 2px #00ffff;
+        }
+        
+        /* Enhanced Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background-color: #ff00ff;
+            box-shadow: 0 0 8px #ff00ff;
+            animation: confetti-fall 8s linear forwards;
+            z-index: 100;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg) translateX(0);
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        /* Enhanced Popper animation */
+        .popper {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #00ffff;
+            box-shadow: 0 0 8px #00ffff;
+            border-radius: 50%;
+            animation: popper 2s ease-out forwards;
+            z-index: 100;
+        }
+        
+        @keyframes popper {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Enhanced Firework animation */
+        .firework {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: firework 2s ease-out forwards;
+            z-index: 100;
+        }
+        
+        @keyframes firework {
+            0% {
+                transform: translate(var(--startX), var(--startY)) scale(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Celebration overlay */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+        
+        /* Result animation */
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .article {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .article h2 {
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        
+        .article p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .input-box {
+                width: 100%;
+            }
+            
+            .main-results {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>Neon Age Calculator</h1>
+            <p>Calculate your exact age in years, months, days, hours, minutes, and seconds</p>
+        </header>
+        
+        <section class="calculator">
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="birth-date">Enter Your Birth Date:</label>
+                    <input type="date" id="birth-date" max="2023-12-31">
+                    <button type="button" class="neon-date-button">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                </div>
+                <div class="input-box">
+                    <label for="end-date">Calculate Age As Of (Optional):</label>
+                    <input type="date" id="end-date">
+                    <button type="button" class="neon-date-button">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <button id="calculate-btn">Calculate Age</button>
+            
+            <div class="main-results">
+                <div class="result-item">
+                    <div class="result-title">Years</div>
+                    <div class="result-value" id="years">0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-title">Months</div>
+                    <div class="result-value" id="months">0</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-title">Days</div>
+                    <div class="result-value" id="days">0</div>
+                </div>
+            </div>
+            
+            <div class="total-days">
+                <div class="total-days-title">Total Days of Life</div>
+                <div class="total-days-value" id="total-days">0</div>
+            </div>
+            
+            <div class="detailed-results">
+                <h2>Detailed Results</h2>
+                <div class="detailed-result">
+                    <span>Age in Years:</span>
+                    <span id="detail-years">0 years</span>
+                </div>
+                <div class="detailed-result">
+                    <span>Age in Months:</span>
+                    <span id="detail-months">0 months</span>
+                </div>
+                <div class="detailed-result">
+                    <span>Age in Days:</span>
+                    <span id="detail-days">0 days</span>
+                </div>
+                <div class="detailed-result">
+                    <span>Age in Hours:</span>
+                    <span id="detail-hours">0 hours</span>
+                </div>
+                <div class="detailed-result">
+                    <span>Age in Minutes:</span>
+                    <span id="detail-minutes">0 minutes</span>
+                </div>
+                <div class="detailed-result">
+                    <span>Age in Seconds:</span>
+                    <span id="detail-seconds">0 seconds</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="article">
+            <h2>The Ultimate Guide to Age Calculation: Why It Matters More Than You Think</h2>
+            <p>Age calculation might seem like a simple arithmetic exercise, but it holds profound significance in our lives. From celebrating milestones to making important life decisions, understanding exactly how old we are (down to the second!) can be both practical and fascinating.</p>
+            
+            <h2>The Science Behind Age Calculation</h2>
+            <p>Calculating age isn't as straightforward as subtracting birth years from the current year. Our calendar system, with its leap years and varying month lengths, adds complexity to what seems like simple math.</p>
+            
+            <p>Leap years occur every four years (with some exceptions) to keep our calendar in alignment with the Earth's revolutions around the Sun. This means that calculating exact age requires accounting for these extra days. Our neon age calculator handles all these complexities seamlessly, giving you precise results instantly.</p>
+            
+            <h2>Practical Applications of Precise Age Calculation</h2>
+            <p>1. <strong>Medical Contexts</strong>: In healthcare, precise age calculation can be critical. Pediatric medications often depend on exact age in months, and certain screenings are age-dependent.</p>
+            
+            <p>2. <strong>Legal Requirements</strong>: Many legal rights and responsibilities are tied to specific ages. Knowing exactly when someone reaches a particular age can be crucial for contracts, voting, driving, and other legal matters.</p>
+            
+            <p>3. <strong>Financial Planning</strong>: Retirement planning, education funds, and insurance policies often require precise age calculations to determine eligibility and benefits.</p>
+            
+            <p>4. <strong>Genealogy Research</strong>: Family historians often need to calculate exact ages at specific events to create accurate family trees and timelines.</p>
+            
+            <h2>Cultural Significance of Age</h2>
+            <p>Different cultures place varying importance on age calculation. In many East Asian countries, people are considered one year old at birth and add a year on New Year's Day, creating a different age calculation system entirely.</p>
+            
+            <p>In Western cultures, milestone birthdays (like 16, 18, 21, 30, 40, 50) are often celebrated lavishly. Knowing exactly how much time you have until these milestones can add excitement to the countdown.</p>
+            
+            <h2>Psychological Aspects of Age Awareness</h2>
+            <p>Research suggests that being aware of our age can positively and negatively impact our psychology. On one hand, it can create motivation to achieve certain goals by deadlines. On the other, it can lead to age-related anxiety.</p>
+            
+            <p>Precise age calculation helps us contextualize our lives in time, allowing for better reflection on accomplishments and future planning.</p>
+            
+            <h2>Historical Methods of Age Calculation</h2>
+            <p>Before digital tools, people used various methods to calculate age. Ancient civilizations used sundials, water clocks, and astronomical observations. The development of accurate calendars was a significant advancement in age calculation.</p>
+            
+            <p>Today, we have sophisticated tools like this neon age calculator that can instantly compute not just years, but months, days, hours, minutes, and seconds—a feat that would have been incredibly time-consuming in the past.</p>
+            
+            <h2>Fun Ways to Use Our Age Calculator</h2>
+            <p>Beyond practical applications, our age calculator can be used for fun activities:</p>
+            
+            <p>- Calculate exactly how old your pets are in "human years" (though the 7:1 ratio is a myth!)</p>
+            <p>- Determine your age on other planets (where years have different lengths)</p>
+            <p>- Figure out how many days until your next birthday</p>
+            <p>- Calculate the exact age difference between you and your friends or relatives</p>
+            <p>- Find out how many seconds you've been alive (a surprisingly large number!)</p>
+            
+            <h2>Conclusion</h2>
+            <p>Age is more than just a number—it's a precise measurement of our journey through time. Whether for practical needs or curiosity, our neon age calculator provides accurate results with a visually engaging experience. The vibrant neon design makes the process enjoyable, while the detailed results satisfy both practical and curious minds.</p>
+            
+            <p>Next time you wonder about your exact age or need to calculate time between important dates, remember that this tool is here to provide precise, instant results with a splash of colorful fun!</p>
+        </section>
+        
+        <footer>
+            <p>© 2023 Neon Age Calculator | A Multi-Tools Project</p>
+        </footer>
+    </div>
 
-  <div class="calculator-container">
-    <h1>Age Calculator</h1>
-    <label for="dob">Enter Date of Birth:</label>
-    <input type="date" id="dob">
+    <div class="celebration-overlay" id="celebration-overlay"></div>
 
-    <label for="calcDate">Calculate Age Up To:</label>
-    <input type="date" id="calcDate">
-
-    <button onclick="calculateAge()">Calculate Age</button>
-    <p id="result"></p>
-  </div>
-
-  <script>
-    function calculateAge() {
-      const dob = new Date(document.getElementById("dob").value);
-      const calcDate = new Date(document.getElementById("calcDate").value);
-
-      if (!dob || !calcDate || isNaN(dob) || isNaN(calcDate)) {
-        document.getElementById("result").innerText = "⚠️ Please enter valid dates.";
-        return;
-      }
-
-      let years = calcDate.getFullYear() - dob.getFullYear();
-      let months = calcDate.getMonth() - dob.getMonth();
-      let days = calcDate.getDate() - dob.getDate();
-
-      if (days < 0) {
-        months--;
-        days += new Date(calcDate.getFullYear(), calcDate.getMonth(), 0).getDate();
-      }
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      document.getElementById("result").innerText = 
-        `Age: ${years} Years, ${months} Months, ${days} Days`;
-    }
-  </script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculate-btn');
+            calculateBtn.addEventListener('click', calculateAge);
+            const celebrationOverlay = document.getElementById('celebration-overlay');
+            
+            // Add event listeners to neon date buttons
+            document.querySelectorAll('.neon-date-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    if (input && input.tagName === 'INPUT') {
+                        input.showPicker();
+                    }
+                });
+            });
+            
+            // Set max attribute for date inputs to today
+            const today = new Date();
+            const todayFormatted = today.toISOString().split('T')[0];
+            document.getElementById('birth-date').setAttribute('max', todayFormatted);
+            document.getElementById('end-date').setAttribute('max', todayFormatted);
+            
+            function calculateAge() {
+                const birthDateInput = document.getElementById('birth-date').value;
+                const endDateInput = document.getElementById('end-date').value;
+                
+                if (!birthDateInput) {
+                    alert('Please enter your birth date');
+                    return;
+                }
+                
+                const birthDate = new Date(birthDateInput);
+                const endDate = endDateInput ? new Date(endDateInput) : new Date();
+                
+                if (birthDate > endDate) {
+                    alert('Birth date cannot be after the selected end date');
+                    return;
+                }
+                
+                // Create celebration effects
+                createCelebrationEffects();
+                
+                // Calculate difference
+                let years = endDate.getFullYear() - birthDate.getFullYear();
+                let months = endDate.getMonth() - birthDate.getMonth();
+                let days = endDate.getDate() - birthDate.getDate();
+                
+                // Adjust negative months/days
+                if (days < 0) {
+                    months--;
+                    // Days in previous month
+                    const lastMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                    days += lastMonth.getDate();
+                }
+                
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+                
+                // Calculate total difference in milliseconds
+                const diffMs = endDate - birthDate;
+                
+                // Convert to various units
+                const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+                const totalMinutes = Math.floor(diffMs / (1000 * 60));
+                const totalSeconds = Math.floor(diffMs / 1000);
+                
+                // Update results with animation
+                animateValue('years', 0, years, 1000);
+                animateValue('months', 0, months, 1000);
+                animateValue('days', 0, days, 1000);
+                animateValue('total-days', 0, totalDays, 1000);
+                
+                document.getElementById('detail-years').textContent = `${years} years`;
+                document.getElementById('detail-months').textContent = `${(years * 12) + months} months`;
+                document.getElementById('detail-days').textContent = `${totalDays} days`;
+                document.getElementById('detail-hours').textContent = `${totalHours.toLocaleString()} hours`;
+                document.getElementById('detail-minutes').textContent = `${totalMinutes.toLocaleString()} minutes`;
+                document.getElementById('detail-seconds').textContent = `${totalSeconds.toLocaleString()} seconds`;
+                
+                // Add celebration class to result values
+                document.querySelectorAll('.result-value, .total-days-value').forEach(el => {
+                    el.classList.add('celebrate');
+                    setTimeout(() => {
+                        el.classList.remove('celebrate');
+                    }, 500);
+                });
+            }
+            
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    obj.textContent = value.toLocaleString();
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            function createCelebrationEffects() {
+                // Clear previous celebrations
+                celebrationOverlay.innerHTML = '';
+                
+                // Create confetti - more and longer lasting
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.backgroundColor = i % 2 === 0 ? '#ff00ff' : '#00ffff';
+                        confetti.style.boxShadow = i % 2 === 0 ? '0 0 8px #ff00ff' : '0 0 8px #00ffff';
+                        confetti.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                        celebrationOverlay.appendChild(confetti);
+                        
+                        // Remove confetti after animation
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, 8000);
+                    }, i * 100);
+                }
+                
+                // Create poppers around the button - more and bigger
+                const button = document.getElementById('calculate-btn');
+                const buttonRect = button.getBoundingClientRect();
+                const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+                const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+                
+                for (let i = 0; i < 50; i++) {
+                    const popper = document.createElement('div');
+                    popper.className = 'popper';
+                    popper.style.left = buttonCenterX + 'px';
+                    popper.style.top = buttonCenterY + 'px';
+                    
+                    // Random direction and distance
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 100 + Math.random() * 150;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    popper.style.setProperty('--tx', tx + 'px');
+                    popper.style.setProperty('--ty', ty + 'px');
+                    
+                    celebrationOverlay.appendChild(popper);
+                    
+                    // Remove popper after animation
+                    setTimeout(() => {
+                        popper.remove();
+                    }, 2000);
+                }
+                
+                // Create fireworks - more and bigger
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => {
+                        const firework = document.createElement('div');
+                        firework.className = 'firework';
+                        
+                        // Random start position
+                        const startX = Math.random() * window.innerWidth;
+                        const startY = Math.random() * window.innerHeight;
+                        firework.style.setProperty('--startX', startX + 'px');
+                        firework.style.setProperty('--startY', startY + 'px');
+                        
+                        firework.style.backgroundColor = i % 2 === 0 ? '#ff00ff' : '#00ffff';
+                        firework.style.boxShadow = i % 2 === 0 ? '0 0 8px #ff00ff' : '0 0 8px #00ffff';
+                        
+                        // Random direction and distance
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = 50 + Math.random() * 100;
+                        const tx = Math.cos(angle) * distance;
+                        const ty = Math.sin(angle) * distance;
+                        
+                        firework.style.setProperty('--tx', tx + 'px');
+                        firework.style.setProperty('--ty', ty + 'px');
+                        
+                        celebrationOverlay.appendChild(firework);
+                        
+                        // Remove firework after animation
+                        setTimeout(() => {
+                            firework.remove();
+                        }, 2000);
+                    }, i * 150);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
-      </div>
-</div>
